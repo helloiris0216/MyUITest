@@ -4,6 +4,15 @@ public interface MainContract {
 
     interface Model {
 
+        void request(DemoCallback callback);
+
+        interface DemoCallback {
+
+            void onSuccess(String response);
+            void onFail(String err);
+
+        }
+
     }
 
     interface View {
