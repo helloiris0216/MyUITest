@@ -12,8 +12,8 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void requestUserName() {
 
-//        final User user = new DataManager().requestUserName();
-//        iView.receivedUserName(String.format("%s %s", user.id, user.name));
+        final User user = new DataManager().requestUserName();
+        iView.receivedUserName(String.format("%s %s", user.id, user.name));
 
     }
 

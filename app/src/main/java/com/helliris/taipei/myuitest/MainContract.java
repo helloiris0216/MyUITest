@@ -4,12 +4,13 @@ public interface MainContract {
 
     interface Model {
 
-        void request(DemoCallback callback);
+        void request1(DemoCallback callback);
+
+        void getJoke(DemoCallback callback);
 
         interface DemoCallback {
 
-            void onSuccess(String response);
-            void onFail(String err);
+            void onReceive(String response);
 
         }
 

@@ -1,6 +1,7 @@
 package com.helliris.taipei.myuitest;
 
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.intent.Intents;
 
@@ -26,63 +27,27 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class ExampleInstrumentedTest {
 
-    private final String mockedResponse = "I am mocked response";
+    @Test
+    public void testAsynchronous() {
 
-//    @Rule
-//    public ActivityTestRule activityTestRule = new ActivityTestRule(MainActivity.class) {
-//        @Override
-//        public Activity launchActivity(@Nullable Intent startIntent) {
-//
-//            // 呼叫 MockWebServer 的實體並預先給一個假的response
-//            MockResponse mockResponse = new MockResponse();
-//
-//            mockResponse.setResponseCode(200)
-//                    .addHeader("Content-Type", "application/json;charset=utf-8")
-//                    .addHeader("Cache-Control", "no-cache")
-//                    .setBody(mockedResponse);
-//
-//
-//            final MockWebServer server = new MockWebServer();
-//            server.enqueue(mockResponse);
-//
-//            // mocked server 的 url
-//            final  String url = server.url("").toString();
-//
-//            // 當程式呼叫 Constant.url 把它換成 MockWebServer 的 URL
-//            try (MockedStatic<ServerHelper> ms = Mockito.mockStatic(ServerHelper.class)) {
-//
-//                when(ServerHelper.URL).thenReturn(url);
-//
-//            }
-//
-//            return super.launchActivity(startIntent);
-//        }
-//    };
-//
-//
-//    @Test
-//    public void testMockServer() {
-//        // MainActivity 被 launch 後跟 server 連線時被導到 MockWebServer 我們預設的 response
-//        // "I am mocked response"
-//        // 因此 textView 會顯示到我們預設從 MockWebServer 來的 I am mocked response，所以測試通過
-//        onView(withId(R.id.textView))
-//                .check(matches(withText(mockedResponse)));
-//    }
-//
-//
-//    @Before
-//    public void setUp()  {
-//
-//        MockitoAnnotations.openMocks(this);
-//
-//    }
-//
-//    @Test
-//    public void useAppContext() {
-//        // Context of the app under test.
-//        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-//        assertEquals("com.helliris.taipei.myuitest", appContext.getPackageName());
-//    }
+        ActivityScenario activityScenario = ActivityScenario.launch(MainActivity.class);
+
+        // 註冊 IdlingResource　　　
+        IdlingRegistry.getInstance().register(Idling.getResource());
+
+        // assert
+        onView(withId(R.id.button2))                 // 點擊進入非同步呼叫
+                .perform(click());
+
+        onView(withId(R.id.textView))               // text view
+                .check(matches(isDisplayed()));
+
+        // 釋放 IdlingResource
+        IdlingRegistry.getInstance().unregister(Idling.getResource());
+
+        activityScenario.close();
+
+    }
 
     @Test
     public void testDisplayUser() {
@@ -92,7 +57,7 @@ public class ExampleInstrumentedTest {
         Intents.init();
 
         // 搜尋 button，並執行點擊，進入到 List activity
-        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.button3)).perform(click());
 
         // 檢查 ListActivity 是否被開啟
         intended(hasComponent(ListActivity.class.getName()));

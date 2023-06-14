@@ -28,7 +28,7 @@ public class DetailActivity extends AppCompatActivity {
 
         EditText editText = findViewById(R.id.editText);
 
-        Button button = findViewById(R.id.button);
+        Button button = findViewById(R.id.user_btn);
         button.setOnClickListener(v -> {
 
             String content = editText.getText().toString();

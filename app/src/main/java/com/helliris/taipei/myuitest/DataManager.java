@@ -22,4 +22,9 @@ public class DataManager {
         return users;
     }
 
+    public User requestUserName() {
+
+        return new User("001", "Iris Yen", 99);
+    }
+
 }
