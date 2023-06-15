@@ -1,4 +1,8 @@
-package com.helliris.taipei.myuitest;
+package com.helliris.taipei.myuitest.presenter;
+
+import com.helliris.taipei.myuitest.User;
+import com.helliris.taipei.myuitest.contract.MainContract;
+import com.helliris.taipei.myuitest.model.DataManager;
 
 public class MainPresenter implements MainContract.Presenter {
 

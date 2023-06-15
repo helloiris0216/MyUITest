@@ -1,18 +1,22 @@
-package com.helliris.taipei.myuitest;
+package com.helliris.taipei.myuitest.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View {
+import com.helliris.taipei.myuitest.R;
+import com.helliris.taipei.myuitest.base.BaseContract;
+import com.helliris.taipei.myuitest.contract.MainContract;
+import com.helliris.taipei.myuitest.model.MainModel;
+import com.helliris.taipei.myuitest.presenter.MainPresenter;
+
+public class MainActivity extends BaseActivity implements MainContract.View {
 
     private TextView textView;
-    private ServerHelper serverHelper;
+    private MainModel mainModel;
     private MainPresenter iPresenter;
 
 
@@ -21,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        serverHelper = new ServerHelper();
+        mainModel = new MainModel();
         iPresenter = new MainPresenter(this);
 
         textView = findViewById(R.id.textView);
@@ -40,14 +44,30 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         button2.setOnClickListener(v -> {
 
-            serverHelper.getJoke(new MainContract.Model.DemoCallback() {
-                @Override
-                public void onReceive(String response) {
+            showProgress("載入中...");
 
-                    runOnUiThread(() -> textView.setText(response));
+            mainModel.getJoke(new BaseContract.onListener<String>() {
+                @Override
+                public void onFail(String message) {
+
+                    runOnUiThread(() -> {
+
+                        closeProgress();
+                        textView.setText(message);
+
+                    });
 
                 }
 
+                @Override
+                public void onSuccess(String joke) {
+                    runOnUiThread(() -> {
+
+                        closeProgress();
+                        textView.setText(joke);
+
+                    });
+                }
             });
 
         });
@@ -61,35 +81,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             startActivity(intent);
 
         });
-
-
-        // TODO: 2023/6/13 測試 Local server
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//
-//        executorService.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                ServerHelper server = new ServerHelper();
-//
-//                server.request(new MainContract.Model.DemoCallback() {
-//                    @Override
-//                    public void onSuccess(String response) {
-//
-//                        runOnUiThread(() -> textView.setText(response));
-//
-//                    }
-//
-//                    @Override
-//                    public void onFail(String err) {
-//
-//                        runOnUiThread(() -> textView.setText(err));
-//
-//                    }
-//                });
-//
-//            }
-//        });
 
     }
 

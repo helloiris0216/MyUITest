@@ -1,6 +1,9 @@
 package com.helliris.taipei.myuitest;
 
 
+import com.helliris.taipei.myuitest.contract.MainContract;
+import com.helliris.taipei.myuitest.presenter.MainPresenter;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

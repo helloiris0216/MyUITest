@@ -1,4 +1,6 @@
-package com.helliris.taipei.myuitest;
+package com.helliris.taipei.myuitest.model;
+
+import com.helliris.taipei.myuitest.User;
 
 import java.util.ArrayList;
 import java.util.List;

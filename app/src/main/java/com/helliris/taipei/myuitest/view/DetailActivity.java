@@ -1,4 +1,4 @@
-package com.helliris.taipei.myuitest;
+package com.helliris.taipei.myuitest.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,9 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.helliris.taipei.myuitest.Constant;
+import com.helliris.taipei.myuitest.R;
+
 import java.util.Locale;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

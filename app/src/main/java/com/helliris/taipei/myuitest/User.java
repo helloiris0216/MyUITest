@@ -1,5 +1,9 @@
 package com.helliris.taipei.myuitest;
 
+import androidx.annotation.NonNull;
+
+import java.util.Locale;
+
 public class User {
 
     public String id;
@@ -12,4 +16,9 @@ public class User {
         this.level = level;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format(Locale.getDefault(), "id = %s \nname = %s \nlevel = %d", id, name, level);
+    }
 }

@@ -17,11 +17,18 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            buildConfigField "String", "SERVER_URL", '"https://5a4fb198-fc00-48b0-b914-ffbc1c6f7c6f.mock.pstmn.io"'
+        }
+
         release {
+            buildConfigField "String", "SERVER_URL", '"https://api.chucknorris.io"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -36,10 +43,13 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
-    implementation 'androidx.test.espresso:espresso-idling-resource:3.5.1'
+
+    def espressoVersion = '3.5.0-alpha05'
+
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
+    implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
 
     androidTestImplementation 'androidx.test:rules:1.4.0'
 
@@ -53,5 +63,10 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:okhttp:4.8.0'
     implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Mock Server
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.8.0'
+    androidTestImplementation 'com.squareup.okhttp3:mockwebserver:4.8.0'
+
 
 }
