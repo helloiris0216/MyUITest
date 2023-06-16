@@ -87,15 +87,16 @@ public class ExampleInstrumentedTest {
         // 搜尋 button，並執行點擊，進入到 List activity
         onView(withId(R.id.button3)).perform(click());
 
+        // 檢查 ListActivity 是否被開啟
+        intended(hasComponent(ListActivity.class.getName()));
+
+        // 註冊 IdlingResource，以等待非同步執行結果 (一進入就撈資料)
         IdlingRegistry.getInstance().register(Idling.getResource());
 
         // 設定 MockWebServer 的回應
         mockWebServer.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(new Gson().toJson(jsonString)));
-
-        // 檢查 ListActivity 是否被開啟
-        intended(hasComponent(ListActivity.class.getName()));
 
         // Assert
         onView(withId(R.id.recyclerView))
@@ -109,7 +110,6 @@ public class ExampleInstrumentedTest {
 
         // 找到 mock response 的元件，並檢查是否顯示
         onView(withText(mockName)).check(matches(isDisplayed()));
-//        onView(withText(mockId)).check(matches(isDisplayed()));
         onView(withText("level is " + mockLevel)).check(matches(isDisplayed()));
 
         onView(withHint("nickname")).perform(typeText("HellIris"));
@@ -157,7 +157,7 @@ public class ExampleInstrumentedTest {
      * E2E測試: 使用 mock web server & mock api 測試非同步執行
      */
     @Test
-    public void testMockServer() {
+    public void testGetJoke() {
 
         // Arrange
         ActivityScenario activityScenario = ActivityScenario.launch(MainActivity.class);

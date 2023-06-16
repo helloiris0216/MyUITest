@@ -32,7 +32,7 @@ public class MainModel implements MainContract.Model {
     @Override
     public void request1(DemoCallback callback) {
 
-        // 開始http request前計數器+1鎖住testing thread
+        // 開始 http request 前計數器 +1 鎖住 testing thread
         Idling.getResource().increment();
 
         HandlerThread handlerThread = new HandlerThread("HandlerThread");
@@ -61,7 +61,7 @@ public class MainModel implements MainContract.Model {
 
                         callback.onReceive("取得失敗");
 
-                        // callback執行完成，計數器-1變成0後釋放testing thread
+                        // callback執行完成，計數器 -1 變成 0 後釋放 testing thread
                         Idling.getResource().decrement();
 
                         Looper.myLooper().quit();
@@ -107,7 +107,7 @@ public class MainModel implements MainContract.Model {
     @Override
     public void getJoke(BaseContract.onListener<String> callback) {
 
-        // 開始http request前計數器+1鎖住testing thread
+        // 開始 http request 前計數器 +1 鎖住 testing thread
         Idling.getResource().increment();
 
         HandlerThread handlerThread = new HandlerThread("HandlerThread");
@@ -136,7 +136,7 @@ public class MainModel implements MainContract.Model {
 
                         callback.onFail("取得失敗");
 
-                        // callback執行完成，計數器-1變成0後釋放testing thread
+                        // callback 執行完成，計數器 -1 變成 0 後釋放 testing thread
                         Idling.getResource().decrement();
 
                         Looper.myLooper().quit();
@@ -159,7 +159,7 @@ public class MainModel implements MainContract.Model {
                         e.printStackTrace();
                     }
 
-                    // callback執行完成，計數器-1變成0後釋放testing thread
+                    // callback 執行完成，計數器 -1 變成 0 後釋放 testing thread
                     Idling.getResource().decrement();
 
                     Looper.myLooper().quit();
@@ -171,7 +171,7 @@ public class MainModel implements MainContract.Model {
 
                     callback.onFail(e.getMessage());
 
-                    // callback執行完成，計數器-1變成0後釋放testing thread
+                    // callback 執行完成，計數器 -1 變成 0 後釋放 testing thread
                     Idling.getResource().decrement();
 
                     Looper.myLooper().quit();
